@@ -110,14 +110,14 @@ fs.writeFileSync('test_writeout.txt', poem);
 
 // read asynchonously
 // takes as arguments 1. file to read, 2. encoding, and 3. callback function that takes an error if one occurs and the returned data
-fs.readFile('test_writeout.txt', 'utf8', function(err, data){
+fs.readFile('test_file.txt', 'utf8', function(err, data){
     // on success (we're assuming no errors)
     // async write
     if(err){
         console.log(`async read error: ${err}`);
     } else {
         // takes as arguments 1. file to write to, 2. data to write, and 3. callback function that takes an error if one occurs and the returned data
-        fs.writeFile('test_writeout_async.txt', data, function(err, data){
+        fs.writeFile('test_writeout.txt', data, function(err, data){
             if(err){
                 console.log(`async write error: ${err}`);
             }
@@ -127,6 +127,59 @@ fs.readFile('test_writeout.txt', 'utf8', function(err, data){
 
 console.log('testing non-blocked code');
 
+// to delete files (make sure file you're trying to delete exists first)
+// setTimeout to wait
+setTimeout(() => {fs.unlink('test_writeout.txt', (err) => {
+    if(err){
+        console.log(err);
+    }
+})}, 2000);
 
+// making directory synchronously
+fs.mkdirSync('stuff_dir_sync');
+// deleting directory synchronously
+// setTimeout to wait so you can see directory appear and then be deleted
+setTimeout(() => {
+    fs.rmdirSync('stuff_dir_sync');
+}, 2000);
+
+// setTimeout so that it happens afetr the above code
+setTimeout(() => {
+    // making directory asynchonously
+    fs.mkdir('stuff_dir_async', (err) => {
+        if(err){
+            console.log(`async make directory error: ${err}`);
+        } else {
+            // reading file asynchonously
+            fs.readFile('test_file.txt', 'utf8', function(err, data){
+                // on success (we're assuming no errors)
+                if(err){
+                    console.log(`async read error in new directory: ${err}`);
+                } else {
+                    // writing file asynchonously
+                    fs.writeFile('./stuff_dir_async/test_writeout.txt', data, function(err){
+                        if(err){
+                            console.log(`async write error in new directory: ${err}`);
+                        } else {
+                            fs.unlink('./stuff_dir_async/test_writeout.txt', (err) => {
+                                if(err){
+                                    console.log(err);
+                                }
+                            });
+                            // wait a few seconds then delete directory
+                            setTimeout(() => {
+                                fs.rmdir('stuff_dir_async', function(err){
+                                    if(err){
+                                        console.log(`async directory delete error: ${err}`);
+                                    }
+                                });
+                            }, 2000);
+                        }
+                    });
+                }
+            });
+        }
+    });
+}, 4000);
 
 // stuff

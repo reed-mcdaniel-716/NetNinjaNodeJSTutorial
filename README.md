@@ -1,6 +1,6 @@
 # The Net Ninja Series on Node.js
 - Our registries are built in React, but I'm hoping this tutorial gives me more insight into NodeJS as a whole, so that we can write better and more secure applications
-- Code repo for reference is on [GitHub](https://github.com/iamshaunjp/node-js-playlist)
+- Code repo for reference is on [GitHub](https://github.com/iamshaunjp/node-js-playlist) with videos on [The Net Ninja YouTube channel](https://www.youtube.com/watch?v=qSAze9b0wrY&list=PL4cUxeGkcC9gcy9lrvMJ75z9maRw4byYp&index=11)
 
 ---
 ## 1. Introduction
@@ -69,10 +69,22 @@
 - `fs.readFileSync()` provides us with a *synchronous* method for reading files (`fs.readFile()` is the async version)
     - using this generates "blocking code" i.e. code after it will not be executed until the file is read
 - Similarly, `fs.writeFileSync()` provides us with a *synchronous* method for writing files (`fs.writeFile()` is the async version)
-
+- Use `fs.unlink()` to delete files
 ---
 ## 10. Creating / Removing Directories
+- There are both synchronous and asynchronous methods for creating directories (`fs.mkdirSync()` and `fs.mkdir()`) and deleting directories (`fs.rmdirSync()` and `fs.rmdir()`)
 
+---
+## 11. Clients and Servers
+- In most cases, our client will be our browser, which makes requests of a server, which will in turn return a response to the client
+- This will happen after a protocol (rules for communication) is agreed upon for structuring the data sent between the client and server (HTTPS or FTP for example)
+    - The different protocols are for different types of data (HTTP/S vs FTP) or level of security in transmitting that data (HTTPS vs HTTP)
+- Each client and server is identifiable buy their unique IP addresses, and the connection between then is created via a socket
+- TCP is the protocol for the sending of data down the socket, while a protocol like HTTP defines the structure of the data to be transmitted (HTTP is at the application level, TCP at the transport layer according to [Quora](https://www.quora.com/What-is-the-difference-between-HTTP-protocol-and-TCP-protocol))
+- Data is transmitted across the socket in packets
+- Node.js gives us the ability to open a connection between two computers, and send information between them
+- A program running on a computer can listen for requests sent to a particular port number
+    - Need to know what port Node.js is listening on in order to send it requests it can respond to
 
 
 
