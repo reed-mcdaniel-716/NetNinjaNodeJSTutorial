@@ -76,16 +76,114 @@
 
 ---
 ## 11. Clients and Servers
-- In most cases, our client will be our browser, which makes requests of a server, which will in turn return a response to the client
-- This will happen after a protocol (rules for communication) is agreed upon for structuring the data sent between the client and server (HTTPS or FTP for example)
+- In most cases, our **client** will be our browser, which makes requests of a **server**, which will in turn return a response to the client
+- This will happen after a **protocol** (rules for communication) is agreed upon for structuring the data sent between the client and server (HTTPS or FTP for example)
     - The different protocols are for different types of data (HTTP/S vs FTP) or level of security in transmitting that data (HTTPS vs HTTP)
-- Each client and server is identifiable buy their unique IP addresses, and the connection between then is created via a socket
+- Each client and server is identifiable buy their unique IP addresses, and the connection between then is created via a **socket**
 - TCP is the protocol for the sending of data down the socket, while a protocol like HTTP defines the structure of the data to be transmitted (HTTP is at the application level, TCP at the transport layer according to [Quora](https://www.quora.com/What-is-the-difference-between-HTTP-protocol-and-TCP-protocol))
-- Data is transmitted across the socket in packets
+- Data is transmitted across the socket in **packets**
 - Node.js gives us the ability to open a connection between two computers, and send information between them
 - A program running on a computer can listen for requests sent to a particular port number
     - Need to know what port Node.js is listening on in order to send it requests it can respond to
 
+---
+## 12. Creating a Server
+- The `http` module is a core module shipped with Node.js that allows you to create a server
+- Both **requests** from and client and **responses** from a server come with **data** and **headers** (metadata about the request or response)
+- There are two types of reponse headers:
+    1. Content-Type: clients (usually browsers) handle different types of data differently (JSON vs HTML)
+    2. Status: indicating the level of success or failure of a request
+
+---
+## 13. Streams & Buffers
+- Analogy: There is a large crystal candy mountain you want to take home to feed your family, but it's too big to move all at once, and it would take forever to do so. Instead, you set up a conveyor belt between the mountain and you house. You then chip away at it until you have a box full, and send that box on the conveyor belt to your house. This way, you family can start eating ASAP and you eventually transport all of the candy home.
+- A **buffer** (box in analogy) is a temporary storage spot for a chunk of data that is being transferred from one place to another
+    - the buffer is filled with data, then passed along
+    - transfer of small chunks of data at a time
+- A **stream** is the flow of/ pathway for data, from the large conglomerate to the buffers to the final destination
+    - Think about streaming and buffering for watching videos online, you can begin consuming content before all data is transferred
+- In Node.js we can create streams to transfer data (read and write files for example), and improve the performance of our applications
+---
+
+## 14. Readable Streams
+- Types of streams in Node.js:
+    1. **Writable stream**: allow Node.js to write data *to* a stream
+    2. **Readable stream**: allow Node.js to read data *from* a stream
+    3. **Duplex stream**: can read and write to and from a stream
+
+---
+## 15. writable Streams
+- Typically, we want to be able to write data to a stream so that it can be sent back to the client (browser) efficiently
+- Using streams over reading and writing data in-full provides improved performance, and allows you to make use of parts of the data more immediately
+
+---
+## 16. Pipes
+- Because reading and writing streams of data is such a common practice, Node.js provides up with **pipes** to direct read stream outputs to write streams as inputs
+    - Don't need to manually listen on a read stream or write to a write stream
+
+---
+## 17. Serving HTML Pages
+- Rather than serving plain text, we may want to instead serve HTML pages
+
+---
+## 18. Serving JSON Data
+- JSON data must first be *serialized* to either a string or buffer stream before being served (more on data serialization [here](https://devopedia.org/data-serialization))
+- You may wish to return JSON data for a front-end JS script to make use of
+    - This makes the server, at a very low level, an API endpoint
+    - you could handle routing s.t. different URL paths return different JSON data
+
+---
+## 19. Basic Routing
+- Want to be able to specify specific URLs to gain access to different resources (webpages, JSON data, etc.) that our server can provide, while using the same IP address and port
+- To do this, we can make use of the `req.url`, the attribute of the request object (called `req`) that contains the URL the requested by the client
+- *Note: without a default route, your client will be left hanging with no response, so it is best to have a default `404` page option*
+
+---
+## 20. The Node Package Manager (npm)
+- `npm` comes installed with Node.js, and is a collection of command line tools for installing and managing third-party packages (modules)
+- `npm` can also be used to publish your own packages
+- doesn't seem to work without `package.json`
+
+---
+## 21. The `package.json` File
+- The `package.json` is for keeping track of all installed packages and dependencies for your project
+- You can either create it manually, or use the Node.js command `npm init` and fill-in the requested information
+- Typically you only share source code, and not dependent modules, with other developers
+    - So to run you application they must know what packages and versions you have installed, and install and update their own packages accordingly
+- Prior to version 5.0.0., you had to include the `-save` flag to indicate that the package should bee saved to the `package.json` file
+    - *This is now done automatically*
+- Given a pre-existing `package.json` file, you need only run `npm install` to install all of the dependencies listed in that file
+
+---
+## 22. Installing `Nodemon`
+- From `npm` : *`nodemon` is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.*
+    - *`nodemon` wraps your application, so you can pass all the arguments you would normally pass to your app*
+- This way, if you have a server running and a browser open to see served resources, any changes to application files are reflected in the browser when you hit refresh
+- Install locally using the command `npm install nodemon`
+- To run, you need to use `npx` (more on that [here](https://www.freecodecamp.org/news/npm-vs-npx-whats-the-difference/))
+    - This is because: *With a local installation, `nodemon` will not be available in your system path. Instead, the local installation of `nodemon` can be run by calling it from within an `npm` script (such as `npm start`) or using `npx nodemon`.* (from `npm` documentation on `nodemon`)
+- Now, to run your application use `npx nodemon app.js` or whatever the main script is according to your `package.json` file
+
+---
+## 23. Introduction to `Express`
+- `Express` is a ***routing*** and ***middleware*** web framework that has minimal functionality of its own: An `Express` application is essentially a series of middleware function calls. ([docs](https://expressjs.com/en/guide/using-middleware.html))
+- `Express` is a popular framework because:
+    1. It provides an easy and flexible routing system
+    2. It integrates with many templating engines
+    3. It contains a middleware framework
+- ***Routing*** refers to determining how an application responds to a client request to a particular endpoint, which is a URI (or path) and a specific HTTP request method (GET, POST, and so on) (from Express [docs](http://expressjs.com/en/starter/basic-routing.html))
+    - In `Express`, the route definition has the structure `app.METHOD(PATH, HANDLER)` where:
+        - `app` is an instance of express
+        - `METHOD` is an HTTP request method, in lowercase
+        - `PATH` is a path on the server
+        - `HANDLER` is the function executed when the route is matched
+- ***Middleware functions*** are functions that have access to the request object (`req`), the response object (`res`), and the next middleware function in the application’s request-response cycle. The next middleware function is commonly denoted by a variable named `next`. ([docs](https://expressjs.com/en/guide/using-middleware.html))
+- Middleware functions can perform the following tasks:
+    - Execute any code
+    - Make changes to the request and the response objects
+    - End the request-response cycle
+    - Call the next middleware function in the stack
+- If the current middleware function does not end the request-response cycle, it must call `next()` to pass control to the next middleware function. Otherwise, the request will be left hanging.
 
 
 

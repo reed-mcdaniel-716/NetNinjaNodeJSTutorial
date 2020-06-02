@@ -1,0 +1,28 @@
+{
+  "name": "netninja_nodejs",
+  "version": "1.0.0",
+  "description": "NodeJS tutorial from The Net Ninja on YouTube",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reed-mcdaniel-716/NetNinjaNodeJSTutorial.git"
+  },
+  "keywords": [
+    "Net",
+    "Ninja",
+    "YouTube"
+  ],
+  "author": "Reed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reed-mcdaniel-716/NetNinjaNodeJSTutorial/issues"
+  },
+  "homepage": "https://github.com/reed-mcdaniel-716/NetNinjaNodeJSTutorial#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  }
+}
