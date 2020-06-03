@@ -18,8 +18,8 @@ let server = http.createServer(function(req, res){
         fs.createReadStream(`${__dirname}/contact.html`).pipe(res);
     } else if(req.url === '/authors'){
         let authors = [
-            {name: "Maya Angelou", favoriteWork: "Still I Rise"},
-            {name: "James Baldwin", favoriteWork: "Giovanni's Room"}
+            {name: "Maya Angelou", work: "Still I Rise"},
+            {name: "James Baldwin", work: "Giovanni's Room"}
         ];
         // header of status and Content-Type
         res.writeHead(200, {'Content-Type': 'application/json'});

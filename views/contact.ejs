@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Contact Me</title>
+        <link rel="stylesheet" href="/assets/styles.css">
+    </head>
+    <body>
+        <%- include('partials/nav.ejs'); %>
+        <h1>Contact Us!</h1>
+        <!-- Pre-populating dummy form with data from query string -->
+        <!-- on submit, use the POST method to submit the form to /contact URL -->
+        <form id="contact-form" method="POST" action="/contact">
+            <label for="who">Who do you want to contact?</label>
+            <input type="text" name="who" value="<%= qs.person %>">
+            <label for="department">Which department?</label>
+            <input type="text" name="department" value="<%= qs.dept %>">
+            <label for="email">Your email:</label>
+            <input type="email" name="email">
+            <input type="submit" name="submit" value="submit">
+        </form>
+    </body>
+</html>

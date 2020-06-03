@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Author Profile</title>
+        <link rel="stylesheet" href="/assets/styles.css">
+    </head>
+    <body
+        <!-- There are various template tags the EJS uses, see website for more details -->
+        <%- include('partials/nav.ejs'); %>
+        <h3>Returning results for: <%= author %> </h3>
+        <h1>Welcome to the author profile of : <%= data.name %> </h1>
+        <p><strong><%= data.name %></strong> was born in <strong><%= data.birthPlace %></strong>. My favorite work by this author is <strong><%= data.favoriteWork %></strong> written in <strong><%= data.favoriteWorkYear %></strong>.</p>
+        <h2>Other Great Works By This Author:</h2>
+        <ul>
+            <!-- Wrap JS in special tags, then HTML in-between -->
+            <% data.otherWorks.forEach((work) => { %>
+                <li> <%= work.title %> (<%= work.year %>)</li>
+            <% }); %>
+        </ul>
+    </body>
+</html>

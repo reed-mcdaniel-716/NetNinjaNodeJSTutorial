@@ -1,5 +1,7 @@
 # The Net Ninja Series on Node.js
-- Our registries are built in React, but I'm hoping this tutorial gives me more insight into NodeJS as a whole, so that we can write better and more secure applications
+- Our registries are built in React on the front-end, but I'm hoping this tutorial gives me more insight into NodeJS as a whole, so that I have a greater understanding of how our code works
+    - This has also given me insight into how other frameworks we plan to use, namely Django, work as well
+    - Also provides more hands-on experience working with routing and middleware for web servers
 - Code repo for reference is on [GitHub](https://github.com/iamshaunjp/node-js-playlist) with videos on [The Net Ninja YouTube channel](https://www.youtube.com/watch?v=qSAze9b0wrY&list=PL4cUxeGkcC9gcy9lrvMJ75z9maRw4byYp&index=11)
 
 ---
@@ -185,7 +187,46 @@
     - Call the next middleware function in the stack
 - If the current middleware function does not end the request-response cycle, it must call `next()` to pass control to the next middleware function. Otherwise, the request will be left hanging.
 
+---
+## 24. Route Parameters
+- `Express` can handle both static (ex. `/contact`) and dynamic (ex. `/`) requests with the use of **route parameters**
 
+---
+## 25. Template Engines (Part 1)
+- A ***template engine*** (also called a *view engine*) enables you to use static template files in your application. ([docs](https://expressjs.com/en/guide/using-template-engines.html))
+- At runtime, the template engine replaces variables in a template file with actual values, and transforms the template into an HTML file sent to the client.
+- This approach makes it easier to design an HTML page.
+- For this project, we will be making use of the [EJS template engine](https://ejs.co/)
+
+---
+## 26. Template Engines (Part 2)
+- In addition to adding in dynamic data, you can also put JS control structures, like for loops, in view templates
+
+---
+## 27. Partial Views
+- Partial views (templates) allow you to extract the elements common to many templates into their own file, and then include it in multiple templates
+    - for example, the navigation bar and footer available on every page of your application
+
+---
+## 28. Serving Static Files (& Middleware)
+- For static files in you application (ex. CSS files), you need to handle requests for these files just as you would any other (otherwise client will get 404 error because the resource cannot be found)
+- ***Middleware*** (in server-side web application frameworks) can be thought of more broadly of any code that runs between the request and the response (see above for details related to `Express`)
+    - *Note: this is just one type of middleware*
+- `Express` provides us with a lot of in-built middleware, including middleware for handling requests for our static resources
+
+---
+## 29. Query Strings
+- On the World Wide Web, a ***query string*** is a part of a uniform resource locator (URL) that assigns values to specified parameters ([Wikipedia](https://en.wikipedia.org/wiki/Query_string))
+    - the parameters and values often make up a kind of key-value pair
+    - ex. in `mysite.com/blog/new?page=2`, the website and path are `mysite.com/blog/new` onto which we add a `?` to denote the beginning of our query, and the the key-value pair `page=2`
+    - If there is more than one condition, they are separated by an `&`
+- Given a query string, you must be able to parse the request and pull out the data it contains
+
+---
+## 30. Handling `POST` Requests
+- The `POST` method is used to submit an entity to the specified resource (in our case our server), often causing a change in state or side effects on the server.([MDB web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+    - often used for submitting forms
+- As `Express` doesn't have built-in form handling, you need to install some middleware packages for that (this tutorial uses `body-parser`)
 
 
 
