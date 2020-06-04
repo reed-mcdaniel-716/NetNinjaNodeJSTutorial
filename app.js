@@ -49,7 +49,7 @@ app.get('/contact', function(req, res){
 // app.get(), like any app.METHOD, can take a series of middleware functions after the path (applied in order)
 app.post('/contact', urlencodedParser ,function(req, res){
     console.log(req.body);
-    res.render(view = 'contact', locals = {qs: req.query});
+    res.render(view = 'contact-success', locals = {data: req.body});
 });
 
 // dynamic request where :{variable} is a placholder for a variable that will be provided by the client in a request
